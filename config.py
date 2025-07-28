@@ -7,10 +7,13 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'a_super_secret_key_for_your_college_portal_simplified'
 
     # Database Configuration (PostgreSQL)
+    print(os.environ.get('DATABASE_URL'))
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        print("inside if")
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
     else:
+        print("inside else")
         # Local PostgreSQL for development (replace with your user/password/db)
         SQLALCHEMY_DATABASE_URI = 'postgresql://student_notes_user:Sumit%401234@localhost:5432/interview_db'
         # Or uncomment for SQLite local development if preferred (but aim for PG)
