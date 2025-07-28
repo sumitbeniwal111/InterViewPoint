@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}InterViewPoint {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="{{ url_for('index') }}" class="logo">
+                <img src="{{ url_for('static', filename='images/InterViewPoint.png') }}" alt="IIIT Surat Logo"> {# InterViewPoint Logo #}
+                InterViewPoint
+            </a>
+            <nav>
+                <ul>
+                    {# NEW: Show these links ONLY if the user is NOT authenticated #}
+                    {% if not current_user.is_authenticated %}
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('student.about_us') }}">About Us</a></li>
+                        <li><a href="{{ url_for('student.services') }}">Services</a></li>
+                        <li><a href="{{ url_for('student.contact_us') }}">Contact Us</a></li>
+                    {% endif %}
+                    
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('student.profile') }}">My Profile</a></li>
+                        {# Dashboard link for both admin and student #}
+                        <li>
+                            {% if current_user.role == 'admin' %}
+                                <a href="{{ url_for('admin.dashboard') }}">Admin Dashboard</a>
+                                {# No direct link here if dashboard is the main entry point #}
+                            {% else %}
+                                <a href="{{ url_for('student.dashboard') }}">Student Dashboard</a>
+                                {# No direct links here if dashboard is the main entry point #}
+                            {% endif %}
+                        </li>
+                        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 InterViewPoint - All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

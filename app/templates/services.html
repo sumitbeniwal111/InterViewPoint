@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Services - InterViewPoint{% endblock %}
+
+{% block content %}
+<div class="container mt-4 info-section">
+    <h2 class="mb-4">Our Services</h2>
+    <p>InterViewPoint offers essential services tailored to assist you in your career development:</p>
+    
+    <div class="dashboard-cards">
+        <div class="dashboard-card card-blue">
+            <i class="fas fa-briefcase card-icon"></i>
+            <h3>View Interview Experiences</h3>
+            <p>Access a comprehensive collection of approved interview experiences from students who have successfully navigated various company hiring processes.</p>
+            <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-primary">Browse Experiences</a>
+        </div>
+
+        <div class="dashboard-card card-green">
+            <i class="fas fa-edit card-icon"></i>
+            <h3>Submit Your Experience</h3>
+            <p>Contribute to the community by sharing your own interview journey, helping future batches prepare effectively.</p>
+            <a href="{{ url_for('interview.submit_experience') }}" class="btn btn-primary">Share Your Story</a>
+        </div>
+
+        {# UPDATED: Content Moderation Card #}
+        <div class="dashboard-card card-purple">
+            <i class="fas fa-clipboard-check card-icon"></i> {# Changed icon to a clipboard with checkmark #}
+            <h3>Content Moderation</h3> {# Updated Heading #}
+            <p>Admins efficiently review and moderate submitted interview experiences to ensure quality and relevance.</p> {# Updated Description #}
+            {# This link is primarily illustrative for non-admins, actual access is role-gated #}
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <h3 class="mt-5 mb-3">Benefits</h3>
+    <p>By utilizing InterViewPoint, you can:</p>
+    <ul>
+        <li>Gain insights into real-world interview questions and processes.</li>
+        <li>Understand company-specific hiring patterns.</li>
+        <li>Learn from both successes and challenges faced by your peers.</li>
+        <li>Contribute valuable knowledge back to the student community.</li>
+        <li>Prepare more confidently for your next interview.</li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ experience.company_name }} Interview Experience{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{{ experience.company_name }} - {{ experience.role }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Experience Type:</strong> <span class="badge bg-secondary">{{ experience.experience_type }}</span>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <strong>Submitted by:</strong> {{ experience.author.email }} on {{ experience.date_submitted.strftime('%Y-%m-%d') }}
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                {% if experience.batch_year %}
+                <div class="col-md-6">
+                    <strong>Batch Year:</strong> {{ experience.batch_year }}
+                </div>
+                {% endif %}
+                {% if experience.branch %}
+                <div class="col-md-6">
+                    <strong>Branch:</strong> {{ experience.branch }}
+                </div>
+                {% endif %}
+            </div>
+
+            {% if experience.interview_date %}
+            <div class="row mb-3">
+                <div class="col">
+                    <strong>Interview Date:</strong> {{ experience.interview_date.strftime('%Y-%m-%d') }}
+                </div>
+            </div>
+            {% endif %}
+
+            <hr>
+
+            <h4 class="mt-4 mb-3">Detailed Experience Narrative:</h4>
+            <div class="experience-text-block mb-4">
+                <p>{{ experience.experience_text | safe }}</p> {# Using 'safe' filter if you expect some HTML-like formatting #}
+            </div>
+
+            {% if experience.rounds_details %}
+            <h4 class="mt-4 mb-3">Rounds Details & Questions Asked:</h4>
+            <div class="rounds-details-block mb-4">
+                <p>{{ experience.rounds_details | safe }}</p>
+            </div>
+            {% endif %}
+
+            <div class="text-end">
+                <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Basic styling for text blocks for better readability.
+       These styles are also in style.css, but kept here for immediate context. */
+    .experience-text-block, .rounds-details-block {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 0.25rem;
+        padding: 1.25rem;
+        white-space: pre-wrap; /* Preserves whitespace and line breaks */
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Interview Experiences - Admin{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Manage Interview Experiences</h2>
+    <p>Review, approve, reject, or delete interview experiences submitted by students.</p>
+
+    {% if experiences %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Type</th>
+                        <th>Submitter</th>
+                        <th>Submitted On</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for experience in experiences %}
+                    <tr>
+                        <td>{{ experience.id }}</td>
+                        <td>
+                            {# Link to detail view for comprehensive review #}
+                            <a href="{{ url_for('interview.interview_experience_detail', exp_id=experience.id) }}">
+                                {{ experience.company_name }}
+                            </a>
+                        </td>
+                        <td>{{ experience.role }}</td>
+                        <td>{{ experience.experience_type }}</td>
+                        <td>{{ experience.author.email }}</td>
+                        <td>{{ experience.date_submitted.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if experience.status == 'pending' %}
+                                <span class="badge bg-warning">Pending</span>
+                            {% elif experience.status == 'approved' %}
+                                <span class="badge bg-success">Approved</span>
+                            {% else %} {# rejected #}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if experience.status == 'pending' %}
+                                <a href="{{ url_for('interview.admin_approve_interview', exp_id=experience.id) }}" class="btn btn-sm btn-success me-1" title="Approve"><i class="fas fa-check"></i></a>
+                                <a href="{{ url_for('interview.admin_reject_interview', exp_id=experience.id) }}" class="btn btn-sm btn-warning me-1" title="Reject"><i class="fas fa-times"></i></a>
+                            {% else %}
+                                {# Show a disabled button or different icon if already processed #}
+                                <button class="btn btn-sm btn-light me-1" disabled title="Already Processed"><i class="fas fa-check-double"></i></button>
+                            {% endif %}
+                            {# Delete button is always available #}
+                            <a href="{{ url_for('interview.admin_delete_interview', exp_id=experience.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to permanently delete this experience?');" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No interview experiences found in the system.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

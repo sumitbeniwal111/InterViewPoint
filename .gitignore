@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+*.sqlite3
+*.db # Important: This will ignore site.db if you have it locally
+instance/
+.flaskenv
+
+# Migrations (generally good practice to commit these for history, so don't uncomment)
+# You should have run flask db init/migrate/upgrade locally already for PostgreSQL.
+# migrations/
+# alembic.ini
+
+# IDEs
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PostgreSQL related (local files, not for production)
+pg_hba.conf
+pg_ident.conf
+postgresql.conf
+
+# Sensitive files (if you create any local credential files)
+*.json

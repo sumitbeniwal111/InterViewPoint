@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - InterViewPoint{% endblock %}
+
+{% block content %}
+    <h2>Admin Dashboard</h2>
+    <p class="text-center">Welcome, Admin. Here you can manage all interview experiences.</p>
+
+    <div class="dashboard-cards">
+        {# Card 1: Manage (Approve/Reject/Delete) Interview Experiences #}
+        <div class="dashboard-card card-red">
+            <i class="fas fa-handshake card-icon"></i>
+            <h3>Manage Interview Submissions</h3>
+            <p>Review, approve, reject, or delete new and existing interview experiences.</p>
+            <a href="{{ url_for('interview.admin_manage_interviews') }}" class="btn btn-primary">Manage Submissions</a>
+        </div>
+
+        {# Card 2: View Approved Interview Experiences (like a student would) #}
+        <div class="dashboard-card card-orange">
+            <i class="fas fa-eye card-icon"></i> {# Using a relevant eye icon for viewing #}
+            <h3>View Approved Experiences</h3>
+            <p>See all interview experiences that are currently visible to students.</p>
+            <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-primary">View Live Experiences</a>
+        </div>
+        
+        {# REMOVED: Student Management Card (as per your request) #}
+        {# REMOVED: Any other previous cards related to Notes/PYQs #}
+    </div>
+{% endblock %}

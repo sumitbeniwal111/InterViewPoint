@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to InterViewPoint{% endblock %}
+
+{% block content %}
+<div class="container hero-section">
+    <div class="hero-content">
+        <h2>Your Central Hub for Interview Experiences</h2>
+        <p>Prepare for your career with insights from your peers. Share your journey and learn from others' experiences.</p>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-secondary btn-lg ms-3">View Experiences</a>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/base.png') }}" alt="InterViewPoint Logo">
+    </div>
+</div>
+
+<style>
+    /* Basic styling to make the hero section look decent without relying on old dashboard cards CSS */
+    .hero-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+        padding: 50px 0;
+        text-align: center;
+    }
+    .hero-content {
+        flex: 1 1 50%; /* Allow content to grow/shrink, take about half width */
+        min-width: 300px;
+        padding: 20px;
+    }
+    .hero-image {
+        flex: 1 1 40%; /* Allow image to grow/shrink, take about 40% width */
+        min-width: 250px;
+        padding: 20px;
+    }
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .hero-content h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #007bff; /* Use your primary color */
+    }
+    .hero-content p {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 30px;
+    }
+    .btn-lg {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+    .ms-3 {
+        margin-left: 15px;
+    }
+</style>
+{% endblock %}

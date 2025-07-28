@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}View Interview Experiences{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {# Filter Form Section - IMPROVED UI #}
+    <div class="filter-form mb-4 card p-4"> {# Using 'card' class directly for better styling consistency, and increased padding #}
+        <h4 class="mb-3 text-center text-primary">Find Interview Experiences</h4> {# Added text-primary for blue heading #}
+        <form method="GET" action="{{ url_for('interview.view_interview_experiences') }}" class="row g-3 align-items-center"> {# g-3 for slightly more gutter #}
+            <div class="col-12 col-md-9"> {# Larger column for the search input #}
+                {# Using a placeholder for direct guidance, and no visible label to make it cleaner #}
+                <input type="text" class="form-control form-control-lg" id="universal_search" name="search" value="{{ current_search }}" placeholder="Search by Company, Role, Type, Batch Year, Branch...">
+            </div>
+            <div class="col-12 col-md-3 d-flex"> {# Buttons in a flex container #}
+                <button type="submit" class="btn btn-primary flex-grow-1 me-3 btn-lg">Search</button> {# CHANGED me-2 to me-3 #}
+                <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-secondary flex-grow-1 btn-lg">Clear</a>
+            </div>
+        </form>
+    </div>
+    {# End Filter Form Section #}
+
+    <h2 class="mb-4">All Approved Interview Experiences</h2> {# Main heading after the filter #}
+    <p>Browse through shared interview experiences to prepare for your placements!</p>
+
+    {% if experiences %}
+        <div class="list-group">
+            {% for experience in experiences %}
+            <a href="{{ url_for('interview.interview_experience_detail', exp_id=experience.id) }}" class="list-group-item list-group-item-action mb-3">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <h5 class="mb-1">{{ experience.company_name }} - {{ experience.role }}</h5>
+                    <small class="text-muted">Submitted: {{ experience.date_submitted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="mb-1">
+                    <span class="badge bg-primary">{{ experience.experience_type }}</span>
+                    {% if experience.branch %}<span class="badge bg-secondary ms-1">{{ experience.branch }}</span>{% endif %}
+                    {% if experience.batch_year %}<span class="badge bg-info ms-1">Batch: {{ experience.batch_year }}</span>{% endif %}
+                </p>
+                <small class="text-muted">By: {{ experience.author.email }}</small>
+            </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No approved interview experiences available yet matching your criteria. Try clearing filters.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

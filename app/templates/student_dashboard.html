@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - InterViewPoint{% endblock %}
+
+{% block content %}
+    <h2>Student Dashboard</h2>
+    <p class="text-center">Welcome to your Student Hub. Explore interview insights below.</p>
+
+    <div class="dashboard-cards">
+        {# View Interview Experiences Card #}
+        <div class="dashboard-card card-orange">
+            <i class="fas fa-briefcase card-icon"></i>
+            <h3>View Interview Experiences</h3>
+            <p>Read experiences shared by other students for various companies and roles.</p>
+            <a href="{{ url_for('interview.view_interview_experiences') }}" class="btn btn-primary">Browse Experiences</a>
+        </div>
+
+        {# Submit Interview Experience Card #}
+        <div class="dashboard-card card-green">
+            <i class="fas fa-edit card-icon"></i>
+            <h3>Submit Your Experience</h3>
+            <p>Contribute to the community by sharing your own interview journey, helping future batches prepare effectively.</p>
+            <a href="{{ url_for('interview.submit_experience') }}" class="btn btn-primary">Share Your Story</a>
+        </div>
+
+        {# REMOVED: My Profile Card #}
+        {# Removed Notes & PYQs related cards #}
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - InterViewPoint{% endblock %}
+
+{% block content %}
+<div class="container mt-4 profile-info">
+    <h2 class="mb-4">My Profile</h2>
+    <p>Here are your account details:</p>
+
+    <div class="profile-details">
+        <p><strong>Email:</strong> {{ current_user.email }}</p>
+        <p><strong>Role:</strong> {{ current_user.role | capitalize }}</p> {# Capitalize role for better display (e.g., 'student' -> 'Student') #}
+    </div>
+
+    {# You can add more profile features here later if desired, such as: #}
+    {# <h3 class="mt-5 mb-3">Account Actions</h3> #}
+    {# <a href="{{ url_for('auth.forgot_password') }}" class="btn btn-primary me-2">Change Password</a> #}
+    {# <a href="#" class="btn btn-info">Update Profile Information</a> #}
+
+</div>
+{% endblock %}
